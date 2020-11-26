@@ -25,7 +25,7 @@ for i in range(len(bios)):
     bio = bios[i]
 
     email = "None"
-    match = re.search(r'[\w\.-]+@[\w\.-]+\.\w+', line)
+    match = re.search(r'[\w\.-]+@[\w\.-]+\.\w+', bio)
     if match:
         email = match.group()
 
