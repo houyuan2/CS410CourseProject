@@ -28,3 +28,4 @@ In "server.py", the application would query the database with the input typed in
 # Contributions
 Houyuan Sha: Set up the docker container for elastic search; Extract name and email from faculty bios; Store faculty information to elastic search database
 Yuechen Liu: Set up Flask; Write api connecting database and frontend
+Tianren Zhou: Write query and comments for future extension
