@@ -61,6 +61,7 @@ def search():
     faculty_emails = []
     faculty_names = []
     texts = []
+    faculty_urls = []
     for doc in all_hits:
       faculty_emails.append(doc["_source"]["faculty_email"])
       faculty_names.append(doc["_source"]["faculty_name"])
