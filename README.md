@@ -11,3 +11,7 @@
 4. wait 3 minutes for docker containers to be set up
 5. in terminal: python3 setup.py
 6. wait for all index to be created, this could take about an hour
+
+# Server
+1. in terminal: python3 server.py
+2. navigate to http://127.0.0.1:5000/
