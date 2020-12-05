@@ -20,7 +20,11 @@
 Our project aims to develop a search tool for experts in different fields. An user can enter a search phrase(e.g Data Mining) in the search bar and our application will return the likely results according to similarity between the bios of the expert and the search phrase. The user can inspect the validity of the result by accessing the homepage of the expert using returned URL. Furthermore, the user can contact the expert via the returned email.
 
 # Overview
-Our project is based on elastic search, a document-orientated database that provides unstructured search functionality. The code base is divided to 3 parts. In "setup.py", the application would read the input text files to obtain faculty bios and the corresponding homepage URL. The application would then attempt to extract the faculty name and email from the bios using spacy, a NLP package. These information would be stored into the elastic search database. 
+Our project is based on elastic search, a document-orientated database that provides unstructured search functionality. 
+The code base is divided to 3 parts. 
+In "setup.py", the application would read the input text files to obtain faculty bios and the corresponding homepage URL. The application would then attempt to extract the faculty name and email from the bios using spacy, a NLP package. These information would be stored into the elastic search database. 
+In "server.py", the application would query the database with the input typed in search bar, and return the corresponding results.
 
 # Contributions
 Houyuan Sha: Set up the docker container for elastic search; Extract name and email from faculty bios; Store faculty information to elastic search database
+Yuechen Liu: Set up Flask; Write api connecting database and frontend
