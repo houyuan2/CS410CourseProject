@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link rel="preconnect" href="https://fonts.gstatic.com"> 
+	<link href="https://fonts.googleapis.com/css2?family=McLaren&display=swap" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<style>
+	.responsive{
+		width:15%;
+		height: auto;
+	}
+	.container{
+		font-size: 4em;
+		margin: auto;
+	}
+	.row{
+		text-align: center;
+		font-family: 'McLaren', cursive;
+	}
+	.search_bar{
+		width: 100%;
+		margin-top: 3%;
+
+	}
+	.search_bar_wrap{
+		width: 67%;
+		border-radius: 15px;
+		border: 1px solid #c3baba;
+		height: 3.5em;
+		margin-left: auto;
+		margin-right: auto;
+		display: flex;
+		align-items:center;
+		padding-left: 1em;
+
+	}
+	.fit{
+		max-width: 60%;
+		max-height: 60%;
+
+	}
+	.size_check{
+		width: 90%;
+	}
+	.search_input{
+		border: 0px;
+		padding-left: 1em;
+		width: 100%;
+	}
+	.search_input:focus{
+		outline: none;
+	}
+	.overall{
+		position: fixed;
+		  top: 40%;
+		  left: 50%;
+		  transform: translate(-50%, -50%);
+		  -webkit-transform: translate(-50%, -50%);
+		  -moz-transform: translate(-50%, -50%);
+		  -o-transform: translate(-50%, -50%);
+		  -ms-transform: translate(-50%, -50%);
+	}
+
+	</style>
+</head>
+<body>
+<div class="overall">
+	<div class="container">
+		<div class="row">
+			<img src="{{url_for('static',filename = 'einstein.png')}}" class="responsive">
+			Find an Expert
+		</div>
+	</div>
+	<div class="search_bar">
+		<div class="search_bar_wrap">
+			<img src="{{url_for('static',filename = 'search_icon.png')}}" class="fit">
+			<form action="/search" method="POST" class="size_check">
+				<input class="search_input" name="querytext" type="text" placeholder="Search..">
+			</form>
+		</div>
+
+	</div>
+</div>
+
+</body>
+</html>

@@ -39,7 +39,7 @@ es = Elasticsearch()
 @app.route('/')
 def home():
     # return result
-    return render_template("index_page.html")
+    return render_template("index.html")
 
 @app.route('/search', methods=['POST'])
 def search():
