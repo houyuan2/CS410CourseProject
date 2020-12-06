@@ -44,14 +44,14 @@ def home():
 @app.route('/search', methods=['POST'])
 def search():
     # querytext is user_request from frontend
-    querytext = request.form['querytext']
+    querytext = request.form['querytext'] +"~"
     #use query_string to take querytext as key words, fuzziness is a feature of ElasticSearch to compare the edit distance between data stored in database and key words.
     query_body = {
       "from" : 0, "size" : 5,
       "query": {
         "query_string": {
           "query": querytext,
-          "fuzziness" : 0
+          "fuzziness" : "auto:0,10"
         }
       }
     }
@@ -69,6 +69,7 @@ def search():
       texts.append(doc["_source"]["text"])
     docs = list(zip(faculty_emails, faculty_names, faculty_urls,texts))
     #return in json
+    print(docs)
     return render_template("display.html", doc = docs)
 
 
