@@ -69,9 +69,7 @@ def search():
       texts.append(doc["_source"]["text"])
     docs = list(zip(faculty_emails, faculty_names, faculty_urls,texts))
     #return in json
-    return jsonify({
-        "docs": docs
-    })
+    return render_template("display.html", doc = docs)
 
 
 
