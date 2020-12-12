@@ -1,17 +1,17 @@
 from flask import Flask
 from elasticsearch import Elasticsearch
-from flask import render_template, request, jsonify
+from flask import render_template, request, jsonify, redirect, url_for
 import json
 import re
 
 app = Flask(__name__) 
 es = Elasticsearch()
 regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]') 
-
+alert = 0
+default_size = 10
 @app.route('/')
 def home():
-    # return result
-    return render_template("index.html")
+    return render_template("index.html", alert = alert, size = default_size)
 
 @app.route('/search', methods=['POST'])
 def search():
@@ -20,10 +20,12 @@ def search():
 
     # input checking
     # no special char and querytext should not only contain whitespace
-    if((regex.search(querytext) == None) and (querytext.strip())): 
+    if((regex.search(querytext) == None) and (querytext.strip())):
+      alert = 0 
       querytext += "~"
     else:
-      return "invalid input!"
+      alert = 1
+      return redirect(url_for('home', alert = alert))
     
     #use query_string to take querytext as key words, fuzziness is a feature of ElasticSearch to compare the edit distance between data stored in database and key words.
     query_body = {
@@ -37,7 +39,7 @@ def search():
     }
     result = es.search(index="test-index", body=query_body)
     all_hits = result['hits']['hits']
-    
+
     #divide results into different lists according to the categories 
     faculty_emails = []
     faculty_names = []
