@@ -13,22 +13,9 @@ default_size = 10
 def home():
     return render_template("index.html", alert = alert, size = default_size)
 
-@app.route('/search', methods=['POST'])
-def search():
-    # querytext is user_request from frontend
-    querytext = request.form['querytext']
-    quantity = request.form['quantity']
-
-    # input checking
-    # no special char and querytext should not only contain whitespace
-    if((regex.search(querytext) == None) and (querytext.strip())):
-      alert = 0 
-      querytext += "~"
-    else:
-      alert = 1
-      return redirect(url_for('home', alert = alert))
-    
-    #use query_string to take querytext as key words, fuzziness is a feature of ElasticSearch to compare the edit distance between data stored in database and key words.
+@app.route('/search/<querytext>/<quantity>')
+def searchResults(querytext, quantity):
+  #use query_string to take querytext as key words, fuzziness is a feature of ElasticSearch to compare the edit distance between data stored in database and key words.
     query_body = {
       "from" : 0, "size" : quantity,
       "query": {
@@ -53,6 +40,22 @@ def search():
       texts.append(doc["_source"]["text"])
     docs = list(zip(faculty_emails, faculty_names, faculty_urls,texts))
     return render_template("display.html", doc = docs)
+  
+@app.route('/search', methods=['POST'])
+def search():
+    # querytext is user_request from frontend
+    querytext = request.form['querytext']
+    quantity = request.form['quantity']
+
+    # input checking
+    # no special char and querytext should not only contain whitespace
+    if((regex.search(querytext) == None) and (querytext.strip())):
+      alert = 0 
+      querytext += "~"
+    else:
+      alert = 1
+      return redirect(url_for('home', alert = alert))
+    return redirect(url_for('searchResults', querytext = querytext, quantity = quantity))
 
 
 
