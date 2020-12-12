@@ -8,6 +8,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="static/css/bootstrap-responsive.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<style>
 	.container{
 		border: 0.1em solid #c3baba;
@@ -23,7 +27,28 @@
 		max-height: 60%;
 
 	}
+  .form-group{
+    width: 40%;
+  }
+  .search_input{
+    width: 50%;
+  }
 
+  .input-group{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+  }
+  .second{
+    margin-top: 7px;
+  }
+
+	input[type=number]::-webkit-outer-spin-button, 
+	input[type=number]::-webkit-inner-spin-button {
+		-webkit-appearance: inner-spin-button !important;
+		width: 20%;
+		opacity: 1;
+	}
 	</style>
 </head>
 <body>
@@ -38,19 +63,36 @@
         <span class="icon-bar"></span>
       </button>
     </div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse first" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a href="{{ url_for('home') }}">Home</a></li>
       </ul>
-      <ul class="nav navbar-nav">
-        <li>
-            <input class="search_input" name="querytext" type="text" placeholder="Search..">
-          <img src="{{url_for('static',filename = 'search_icon.png')}}" class="fit">
-					</li>
-      </ul>
+
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="">Contact Us</a></li>
-      </ul>
+          <li><a href="">Contact Us</a></li>
+        </ul>
+      <div class="nav second">
+          <form action="/search" method="POST" class="size_check">
+            <div class="input-group">
+              <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" id="filter" type="button" data-toggle="dropdown">
+                  <i><img src="{{url_for('static',filename = 'drop_down.png')}}" style="width: auto; height: 20px;"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <div class="dropdown-item" style="text-align: center;">
+                        # of Results:
+                        <input type="number" id="quantity" name="quantity" min="1" max="6525" value="10">
+                    </div>
+                </div>
+              </div>
+              <input class="search_input" name="querytext" type="text" placeholder="Search.." style="margin-left: 1%; margin-right:1%;">
+              <button class="btn btn-default dropbtn" id="filter" type="submit">
+              <i><img src="{{url_for('static',filename = 'search_icon.png')}}" style="width: auto; height: 20px;"></i>
+              </button>
+            </div>
+          </form>
+          
+      </div>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
