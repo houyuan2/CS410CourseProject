@@ -61,6 +61,19 @@
 	.overall{
 		margin-top: 10%;
 	}
+	.quantity{
+		text-align: center;
+		margin-top: 2%;
+	}
+	input[type=number]::-webkit-outer-spin-button, 
+	input[type=number]::-webkit-inner-spin-button {
+		-webkit-appearance: inner-spin-button !important;
+		width: 20%;
+		opacity: 1;
+	}
+	.submit_button{
+		margin-left: 8%;
+	}
 
 	</style>
 </head>
@@ -94,15 +107,24 @@
 		</div>
 	</div>
 	<div class="search_bar">
-		<div class="search_bar_wrap">
-			<img src="{{url_for('static',filename = 'search_icon.png')}}" class="fit">
-			<form action="/search" method="POST" class="size_check">
-				<input class="search_input" name="querytext" type="text" placeholder="Search..">
-			</form>
-		</div>
-
+		<form action="/search" method="POST" class="size_check">
+			<div class="search_bar_wrap">
+				<img src="{{url_for('static',filename = 'search_icon.png')}}" class="fit">
+					<input class="search_input" name="querytext" type="text" placeholder="Search..">
+			</div>
+			<div class="quantity">
+					# of Results:
+					<input type="number" id="quantity" name="quantity" min="1" max="6525" value="10">
+					<button class="submit_button" type="submit">Look For Experts</button>
+			</div>
+		</form>
 	</div>
 </div>
 
 </body>
+
+<script>
+	
+</script>
 </html>
+

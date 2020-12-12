@@ -17,6 +17,7 @@ def home():
 def search():
     # querytext is user_request from frontend
     querytext = request.form['querytext']
+    quantity = request.form['quantity']
 
     # input checking
     # no special char and querytext should not only contain whitespace
@@ -29,7 +30,7 @@ def search():
     
     #use query_string to take querytext as key words, fuzziness is a feature of ElasticSearch to compare the edit distance between data stored in database and key words.
     query_body = {
-      "from" : 0, "size" : 5,
+      "from" : 0, "size" : quantity,
       "query": {
         "query_string": {
           "query": querytext,

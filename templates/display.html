@@ -18,6 +18,11 @@
 	.card-header{
 		font-size: 2em;
 	}
+  .fit{
+		max-width: 60%;
+		max-height: 60%;
+
+	}
 
 	</style>
 </head>
@@ -35,7 +40,13 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+      </ul>
+      <ul class="nav navbar-nav">
+        <li>
+            <input class="search_input" name="querytext" type="text" placeholder="Search..">
+          <img src="{{url_for('static',filename = 'search_icon.png')}}" class="fit">
+					</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="">Contact Us</a></li>
