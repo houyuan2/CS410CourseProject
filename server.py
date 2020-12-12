@@ -47,7 +47,10 @@ def search():
     # querytext is user_request from frontend
     querytext = request.form['querytext']
     # input checking
-    if(regex.search(querytext) == None): 
+    # no special char, whitespace
+    print("text: ", querytext)
+    print(querytext.strip() == None)
+    if((regex.search(querytext) == None) and (querytext.strip())): 
       querytext += "~"
     else:
       return "invalid input!"
