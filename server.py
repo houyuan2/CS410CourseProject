@@ -2,10 +2,11 @@ from flask import Flask
 from elasticsearch import Elasticsearch
 from flask import render_template, request, jsonify
 import json
+import re
 
 app = Flask(__name__) 
 es = Elasticsearch()
-
+regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]') 
 # user_request = "Data Mining~"
 
 # query_body = {
@@ -44,7 +45,12 @@ def home():
 @app.route('/search', methods=['POST'])
 def search():
     # querytext is user_request from frontend
-    querytext = request.form['querytext'] +"~"
+    querytext = request.form['querytext']
+    # input checking
+    if(regex.search(querytext) == None): 
+      querytext += "~"
+    else:
+      return "invalid input!"
     #use query_string to take querytext as key words, fuzziness is a feature of ElasticSearch to compare the edit distance between data stored in database and key words.
     query_body = {
       "from" : 0, "size" : 5,
@@ -69,7 +75,7 @@ def search():
       texts.append(doc["_source"]["text"])
     docs = list(zip(faculty_emails, faculty_names, faculty_urls,texts))
     #return in json
-    print(docs)
+    # print(docs)
     return render_template("display.html", doc = docs)
 
 
