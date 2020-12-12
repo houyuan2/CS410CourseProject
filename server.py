@@ -48,8 +48,6 @@ def search():
     querytext = request.form['querytext']
     # input checking
     # no special char, whitespace
-    print("text: ", querytext)
-    print(querytext.strip() == None)
     if((regex.search(querytext) == None) and (querytext.strip())): 
       querytext += "~"
     else:
