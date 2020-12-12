@@ -3,15 +3,16 @@ from datetime import datetime
 import re
 import spacy
 
+# extract PERSON entity from input string using spacy
 def extract_name(input_string):
     nlp = spacy.load('en')
     doc = nlp(input_string)
     for sentence in doc.ents:
-        # print(sentence, sentence.label_)
         if sentence.label_ == "PERSON":
             return str(sentence)
     return "Not Found"
 
+# extract email entity from input string using spacy
 def extract_email(input_string):
     nlp = spacy.load('en')
     doc = nlp(input_string)
@@ -19,39 +20,37 @@ def extract_email(input_string):
         if (sentence.like_email):
             return str(sentence)
 
+    # if spacy returns nothing, try regex
     match = re.search(r'[\w\.-]+@[\w\.-]+\.\w+', input_string)
     if match:
         return match.group()
 
     return "Not Found"
 
+# read all bios
 bios = []
 with open("origin_data/bios6525.txt", "r") as f:
     lines = f.readlines()
     for line in lines:
         line = line.strip()
-        # print(line)
         bios.append(line)
 
+# read all urls
 urls = []
 with open("origin_data/urls6525.txt", "r") as f:
     lines = f.readlines()
     for line in lines:
         line = line.strip()
-        # print(line)
         urls.append(line)
 
+# create elastic search client, the default port is 9200
 es = Elasticsearch()
 
 for i in range(len(bios)):
     url = urls[i]
     bio = bios[i]
 
-    # email = "None"
-    # match = re.search(r'[\w\.-]+@[\w\.-]+\.\w+', bio)
-    # if match:
-    #     email = match.group()
-
+    # specify entities to store in es database
     doc = {
         'faculty_name': extract_name(bio),
         'faculty_email': extract_email(bio),
@@ -60,5 +59,6 @@ for i in range(len(bios)):
         'timestamp': datetime.now(),
     }
 
+    # index the new document to es database
     res = es.index(index="test-index", id=i, body=doc)
     print(res['result'] + " " + str(i))
