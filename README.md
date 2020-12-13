@@ -10,7 +10,7 @@
     docker-compose up -d
 4. wait 3 minutes for docker containers to be set up
 5. in terminal: python3 setup.py
-6. wait for all index to be created, this could take about an hour
+6. wait for all index to be created, this could take up to 3 hours, due to NLP and indexing
 
 # Server
 1. in terminal: python3 server.py
