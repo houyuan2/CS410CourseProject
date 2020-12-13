@@ -49,6 +49,28 @@
 		width: 20%;
 		opacity: 1;
 	}
+  .hide_extra_text{
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+  }
+  input:focus ~ label {
+    outline: -webkit-focus-ring-color auto 5px;
+  }
+  
+  input:checked + .hide_extra_text {
+    -webkit-line-clamp: unset;
+  }
+  
+  input:checked ~ label,
+  .hide_extra_text:not(.truncated) ~ label{
+    display: none;
+  }
+  .hide_check_box{
+    opacity: 0;
+    pointer-events: none;
+  }
 	</style>
 </head>
 <body>
@@ -69,7 +91,7 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-          <li><a href="">Contact Us</a></li>
+          <li><a href="mailto: houyuan2@illinois.edu">Contact Us</a></li>
         </ul>
       <div class="nav second">
           <form action="/search" method="POST" class="size_check">
@@ -98,11 +120,38 @@
 </nav>
 {% for docs in doc %}
 <div class="container">
-	<div class="card-header">{{docs[1]}}</div>
-	<div class="card-body">{{docs[2]}}</div>
-	<div class="card-footer">{{docs[0]}}</div>
-	<div class="card-text">{{docs[3]}}</div>
+	<div class="card-header" style="float: left; width:20%;">
+    <div>{{docs[1]}}</div>
+
+    <div style="margin-left: auto;" >
+      <a href= "mailto: {{docs[0]}}">
+        <img src="{{url_for('static',filename = 'email_icon.png')}}" style="width: auto; height: 1em;">
+      </a>
+      <a href= "{{docs[2]}}" style="margin-left: 5%;">
+          <img src="{{url_for('static',filename = 'link.png')}}" style="width: auto; height: 1.25em;">
+        </a>
+    </div>
+  </div>
+  <div class="card-text" style="float: right; width:80%; padding-left: 2em;">
+    <input type="checkbox" id="expanded" class="hide_check_box">
+    <p class="hide_extra_text">
+    {{docs[3]}}
+    </p>
+    <label for="expanded" role="button" style="text-decoration: underline;">Read More..</label>
+  </div>
 </div>
 {% endfor %}
 </body>
+<script>
+  const ps = document.querySelectorAll('p');
+  const observer = new ResizeObserver(entries => {
+  for (let entry of entries) {
+    entry.target.classList[entry.target.scrollHeight > entry.contentRect.height ? 'add' : 'remove']('truncated');
+  }
+});
+
+ps.forEach(p => {
+  observer.observe(p);
+});
+</script>
 </html>
