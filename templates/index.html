@@ -120,11 +120,14 @@
 		</form>
 	</div>
 </div>
-
 </body>
 
 <script>
-	
+	$(document).ready(function(){
+		if(window.location.href.indexOf("alert=1") > -1){
+			alert("Invalid Input!");
+		}
+	});
 </script>
 </html>
 
