@@ -1,3 +1,5 @@
+# Video Presentation
+
 # Setup
 1. install Docker (https://www.docker.com/get-started, install Docker Desktop)
 2. install python3 (at least 3.7)
@@ -24,6 +26,10 @@ Our project is based on elastic search, a document-orientated database that prov
 The code base is divided to 3 parts. 
 In "setup.py", the application would read the input text files to obtain faculty bios and the corresponding homepage URL. The application would then attempt to extract the faculty name and email from the bios using spacy, a NLP package. These information would be stored into the elastic search database. 
 In "server.py", the application would query the database with the input typed in search bar, and return the corresponding results.
+
+# Comparison
+Original Project: https://github.com/CS410Fall2020/ExpertSearch/
+Compared to the original project, which used the Stanford model, our project took a different route. We used elastic search as text tokenization and ranking tool. We also used python3 spacy to extract email and name from faculty bios. We attempt to extract more names and emails from the input bios. We had more success with email, but name extact is less successful due to the limitation of NLP. Another difference is our search engine is key word based, which is more relaxed compared to the original project. Moreover, our project allows user to specify how many results to be returned. Finally, our front end is more fine-tuned.
 
 # Contributions
 Houyuan Sha: Set up the docker container for elastic search; Extract name and email from faculty bios; Store faculty information to elastic search database
